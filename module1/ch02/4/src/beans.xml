@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="employee" class="org.packt.spring.ch02.setterinjection.Employee">
+		<property name="lists">
+			<list>
+				<value>Ravi Kant Soni</value>
+				<value>Sashi Kant Soni</value>
+				<value>Shree Kant Soni</value>
+			</list>
+		</property>
+		
+		<property name="sets">
+			<set>
+				<value>Namrata Soni</value>
+				<value>Rishi Raj Soni</value>
+			</set>
+		</property>
+		
+		<property name="maps">
+			<map>
+				<entry key="1" value="Sasaram" />
+				<entry key="2" value="Bihar" />
+			</map>
+		</property>
+	</bean>
+</beans>
