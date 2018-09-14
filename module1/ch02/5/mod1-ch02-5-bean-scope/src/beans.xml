@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Spring bean with Singleton scope 
+	<bean id="employeeServiceBean" class="org.packt.spring.ch02.beanscope.EmployeeServiceImpl" ></bean>
+	 -->
+	<!-- Spring bean with prototype scope: retorna una nueva instancia de bean cada vez que se llama al metodo getBean
+		 Cada llamada de getBean() Spring realiza una inicializacion -->
+	<bean id="employeeServiceBean" class="org.packt.spring.ch02.beanscope.EmployeeServiceImpl" scope="prototype"></bean>
+	 
+</beans>
