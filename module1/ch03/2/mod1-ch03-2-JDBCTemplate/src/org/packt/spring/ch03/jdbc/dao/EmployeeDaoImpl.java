@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.sql.DataSource;
 
@@ -19,6 +20,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	private DataSource dataSource;
 	
 	private static Connection conn = null;
+	private static Statement stm = null;
 	private static PreparedStatement ps = null;
 	private static ResultSet rs = null;
 	
@@ -66,6 +68,39 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		}
 		return employee;
 	}
-	
-	
+
+	@Override
+	public void addEmployee(Employee employee) {
+		try
+		{
+			conn = dataSource.getConnection();
+			ps = conn.prepareStatement("insert into persona (nombre, apellido_paterno, apellido_materno, email, telefono) values(?, ?, ?, ?, ?)");
+			ps.setString(1, employee.getNombre());
+			ps.setString(2, employee.getApellidoPaterno());
+			ps.setString(3, employee.getApellidoMaterno());
+			ps.setString(4, employee.getEmail());
+			ps.setString(5, employee.getTelefono());
+			ps.executeUpdate();
+			ps.close();
+		}
+		catch(SQLException e)
+		{
+			throw new RuntimeException(e);
+		}
+		finally
+		{
+			if(conn != null)
+			{
+				try
+				{
+					conn.close();
+				}
+				catch(SQLException e)
+				{
+					
+				}
+			}
+		}
+		
+	}
 }
