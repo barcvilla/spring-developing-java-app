@@ -12,5 +12,6 @@
 	<classpathentry kind="lib" path="C:/AppServers/SpringFramework/5/spring-core-5.0.4.RELEASE.jar"/>
 	<classpathentry kind="lib" path="C:/AppServers/SpringFramework/5/spring-expression-5.0.4.RELEASE.jar"/>
 	<classpathentry kind="lib" path="C:/AppServers/SpringFramework/5/spring-jdbc-5.0.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/AppServers/SpringFramework/5/spring-tx-5.0.4.RELEASE.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
