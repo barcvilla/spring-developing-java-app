@@ -3,11 +3,17 @@ package org.packt.spring.ch03.jdbc.dao;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
+
+import javax.sql.DataSource;
 
 import org.packt.spring.ch03.jdbc.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -15,6 +21,27 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
+	// Variable de clase adicionada para permitir el llamado de Store Procedure
+	private SimpleJdbcCall jdbcCall = null;
+	
+	//metodo que llama a un store procedure
+	@Override
+	public Employee spGetEmployee(int id)
+	{
+		jdbcCall = new SimpleJdbcCall(jdbcTemplate).withProcedureName("getEmployee");
+		SqlParameterSource in = new MapSqlParameterSource().addValue("id", id);
+		Map<String, Object> simpleJdbcCallResult = jdbcCall.execute(in);
+		
+		Employee employee = new Employee(id,
+				(String)simpleJdbcCallResult.get("out_nombre"),
+				(String)simpleJdbcCallResult.get("out_apellido_paterno"),
+				(String)simpleJdbcCallResult.get("out_apellido_materno"),
+				(String)simpleJdbcCallResult.get("out_email"),
+				(String)simpleJdbcCallResult.get("out_telefono"));
+		
+		return employee;
+	}
 	
 	@Override
 	public int getEmployeeCount() {

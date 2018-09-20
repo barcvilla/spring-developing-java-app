@@ -13,6 +13,16 @@ public class Employee {
 	
 	public Employee(int id) {setId(id);}
 	
+	public Employee(int id, String nombre, String apellidoPaterno, String apellidoMaterno, String email, String telefono)
+	{
+		setId(id);
+		setNombre(nombre);
+		setApellidoPaterno(apellidoPaterno);
+		setApellidoMaterno(apellidoMaterno);
+		setEmail(email);
+		setTelefono(telefono);
+	}
+	
 	public Employee(String nombre, String apellidoPaterno, String apellidoMaterno, String email, String telefono)
 	{
 		setNombre(nombre);

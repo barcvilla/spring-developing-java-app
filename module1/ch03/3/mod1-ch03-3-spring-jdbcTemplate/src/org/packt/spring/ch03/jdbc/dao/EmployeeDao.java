@@ -11,4 +11,5 @@ public interface EmployeeDao {
 	public int deleteEmployee(int empId);
 	public Employee getEmployeeById(int empId);
 	public void EmployeeBatchUpdate(final List<Employee> employees);
+	public Employee spGetEmployee(int id);
 }

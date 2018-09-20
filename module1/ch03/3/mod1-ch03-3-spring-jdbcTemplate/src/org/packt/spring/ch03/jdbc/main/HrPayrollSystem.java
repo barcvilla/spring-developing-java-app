@@ -45,6 +45,12 @@ public class HrPayrollSystem {
 		System.out.println("Se han insertado '" + employeeList.size() + "' personas");
 	}
 	
+	public static void spGetEmployee(EmployeeDao employeeDao, int empId)
+	{
+		Employee emp = employeeDao.spGetEmployee(empId);
+		System.out.println("Se recupero el empleado\n" + emp.toString());
+	}
+	
 	public static void main(String[] args)
 	{
 		@SuppressWarnings("resources")
@@ -54,8 +60,9 @@ public class HrPayrollSystem {
 		//insertEmployee(employeeDao);
 		//eliminarEmployee(employeeDao, 12);
 		//ObtenerEmployeeById(employeeDao, 3);
-		System.out.println("Existen '" + employeeDao.getEmployeeCount() + "' personas en la BD");
-		employeeBatchUpdate(employeeDao);
+		//System.out.println("Existen '" + employeeDao.getEmployeeCount() + "' personas en la BD");
+		//employeeBatchUpdate(employeeDao);
+		spGetEmployee(employeeDao, 14);
 		System.out.println("Existen '" + employeeDao.getEmployeeCount() + "' personas en la BD");
 	}
 }
