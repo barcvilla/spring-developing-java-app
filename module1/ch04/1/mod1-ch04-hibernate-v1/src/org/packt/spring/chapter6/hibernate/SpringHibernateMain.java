@@ -12,6 +12,20 @@ public class SpringHibernateMain {
 		ApplicationContext context = new ClassPathXmlApplicationContext("/META-INF/spring/app-context.xml");
 		EmployeeService employeeService = context.getBean("employeeServiceImpl", EmployeeService.class);
 		
+		//insert new employee
+		/**
+		Employee employee = new Employee();
+		employee.setFirstName("Mariana");
+		employee.setLastName("Giraldo Fernandez");
+		employee.setJobTitle("Software Engineer");
+		employee.setDepartment("Computer Sciens");
+		employee.setSalary(120000);
+		
+		employeeService.insertEmployee(employee);
+		*/
+		
+		employeeService.updateEmployee();
+		
 		for(Employee emp : employeeService.getAllEmployees())
 		{
 			System.out.println(emp.toString());

@@ -1,6 +1,5 @@
-package org.packt.spring.chapter6.hibernate.model;
+package org.packt.spring.ch06.hibernate.model;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -12,9 +11,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "employee_info")
-public class Employee implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class Employee {
+private static final long serialVersionUID = 1L;
 	
 	/**
 	 * Atributo Id es de tipo serial, lo que significa que la BD autogenerara el numero para el Id del empleado
@@ -106,6 +104,7 @@ public class Employee implements Serializable {
 	{
 		return "Employee id: " + id + ", name: " + firstName + " Job Title: " + jobTitle + " department: " + department + " Salary: " + salary;
 	}
+	
 	
 	
 }

@@ -19,6 +19,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class EmployeeDaoImpl implements EmployeeDao {
 	
+	/**
+	 * JdbcTemplate: Es la clase central de Spring JDBC la cual incluye la mayor logica comun usando el API JDBC
+	 */
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	

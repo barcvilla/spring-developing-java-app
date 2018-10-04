@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	
+	<!-- Indicamos a Spring donde Scanear los componentes -->
+	<context:annotation-config />
+	<context:component-scan base-package="org.packt.spring.ch06.hibernate" />
+	
+	<!-- Indicamos donde se ecnuentra ubicado el archivo de configuracion de Hibernate -->
+	<context:property-placeholder location="classpath:/META-INF/spring/hibernate.properties" />
+	
+	<!-- DataSource beans que provee conexion a la BD para Hibernate -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+	
+	<!-- SessionFactoryBean. Inyectamos el dataSource en el sessionFactory bean -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" >
+		<property name="dataSource" ref="dataSource" />
+		<property name="annotatedClasses" value="org.packt.spring.ch06.hibernate.model.Employee" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate_show_sql">${hibernate.show_sql}</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- TransactionManager bean permite acceder datos transactional, SessionFactory requiere un 
+	     TransactionManager  -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<tx:annotation-driven transaction-manager="transactionManager" />
+</beans>
