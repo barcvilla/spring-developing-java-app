@@ -11,13 +11,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.view.InternalResourceView;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 
 /**
- *
+ * Web Application context configuration file. Clase que crea un bean (object) por cada definicion de bean mencionado en la clase.
+ * @Configuration : Indica que la clase declara uno o mas @Bean method
+ * @EnabledWebMvc : Adicionar esta anotacion a una clase con la anotacion @Configuration importa configuraciones spring mvc
+ * @ComponentScan : Especificamos el paquete base a scannear para los componentes anotados como @Bean
  * @author PC
  */
 @Configuration
@@ -30,12 +32,17 @@ public class WebApplicationContextConfig implements WebMvcConfigurer{
         configurer.enable();
     }
     
+    /**
+     * Un ViewResolver ayuda al DispatcherServlet indentificar las vistas que tienen que ser renderizadas como una 
+     * respuesta a un especifico web request. 
+     * @return 
+     */
     @Bean
     public InternalResourceViewResolver getInternalResourceViewResolver()
     {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
         resolver.setViewClass(JstlView.class);
-        resolver.setPrefix("WEB-INF/jsp/");
+        resolver.setPrefix("WEB-INF/views/");
         resolver.setSuffix(".jsp");
         
         return resolver;

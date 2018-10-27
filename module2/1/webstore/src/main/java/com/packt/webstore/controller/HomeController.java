@@ -18,6 +18,11 @@ public class HomeController {
     @RequestMapping("/")
     public String welcome(Model model)
     {
+        /**
+         * model.Attribute() es un equivalente a request.setParamter()
+         * Cualquier valor que colocamos en el modelo podemos recuperarlo desde la vista (jsp) utilizando
+         * la clave correspondiente con la ayuda de la expresion ${}
+         */
         model.addAttribute("greeting", "Welcome to Web Store");
         model.addAttribute("tagline", "The one and only amazing web store");
         return "welcome";
