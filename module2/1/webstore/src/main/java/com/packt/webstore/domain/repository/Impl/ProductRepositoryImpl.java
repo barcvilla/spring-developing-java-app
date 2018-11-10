@@ -52,4 +52,62 @@ public class ProductRepositoryImpl implements ProductRepository{
         params.put("id", productId);
         jdbcTemplate.update(sql, params);
     }
+    
+    @Override
+    public List<Product> getProductsByCategory(String category)
+    {
+        String sql = "SELECT * FROM products WHERE CATEGORY = :category";
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("category", category);
+        
+        return jdbcTemplate.query(sql, params, new ProductMapper());
+    }
+    
+    @Override
+    public List<Product> getProductsByFilter(Map<String, List<String>> filterParams)
+    {
+        String sql = "SELECT * FROM products WHERE CATEGORY IN ( :categories) and MANUFACTURER IN ( :brands)";
+        return jdbcTemplate.query(sql, filterParams, new ProductMapper());
+    }
+    
+    @Override
+    public Product getProductById(String productId)
+    {
+         String sql = "SELECT * FROM products WHERE ID = :productId";
+         Map<String, Object> params = new HashMap<String, Object>();
+         params.put("productId", productId);
+         return jdbcTemplate.queryForObject(sql, params, new ProductMapper());
+    }
+    
+    @Override
+    public void addProduct(Product product)
+    {
+        String sql = "INSERT INTO PRODUCTS "
+                + "(ID, "
+                + "NAME, "
+                + "DESCRIPTION, "
+                + "UNIT_PRICE, "
+                + "MANUFACTURER, "
+                + "CATEGORY, "
+                + "CONDITIONS, "
+                + "UNITS_IN_STOCK, "
+                + "UNITS_IN_ORDER, "
+                + "DISCONTINUED) "
+                + "VALUES ("
+                + ":id, :name, :desc, :price, :manufacturer, :category, :condition, :inStock, :inOrder, :discontinued)";
+        
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("id", product.getProductId());
+        params.put("name", product.getName());
+        params.put("desc", product.getDescription());
+        params.put("price", product.getUnitPrice());
+        params.put("manufacturer", product.getManufacturer());
+        params.put("category", product.getCategory());
+        params.put("condition", product.getCondition());
+        params.put("inStock", product.getUnitsInStock());
+        params.put("inOrder", product.getUnitsInOrder());
+        params.put("discontinued", product.isDiscontinued());
+        
+        jdbcTemplate.update(sql, params);
+    }
 }
