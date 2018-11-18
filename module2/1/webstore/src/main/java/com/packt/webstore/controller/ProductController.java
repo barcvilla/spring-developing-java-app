@@ -11,6 +11,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.MatrixVariable;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -132,9 +136,33 @@ public class ProductController {
      * @return 
      */
     @RequestMapping(value = "/products/add", method = RequestMethod.POST)
-    public String processAddNewProductForm(@ModelAttribute("newProduct") Product newProduct)
+    public String processAddNewProductForm(@ModelAttribute("newProduct") Product newProduct, BindingResult result)
     {
+        String[] suppressedFields = result.getSuppressedFields();
+        if(suppressedFields.length > 0)
+        {
+            throw new RuntimeException("Attempting to bind disallowed fields " + StringUtils.arrayToCommaDelimitedString(suppressedFields));
+        }
         productService.addProduct(newProduct);
         return "redirect:/market/products";
+    }
+
+    /**
+     * WebDataBinder extrae los datos del objeto HttpServletRequest y lo convierte a un formato de datos apropiado, lo carga
+     * en un formulario backing bean. Para personalizar el comportamiento del data binding, podemos inicializar y configurar
+     * el objeto WebDataBinder en nuestro objeto Controller.
+     * @InitBinder: Esta anotacion designa un metodo para inicializar WebDataBinder. Actualmente estamos utilizando el objeto
+     * de dominio Product como un formulario backing bean, hacer un submit puede generar una vulnerabilidad de la seguridad.
+     * @param binder 
+     */
+    @InitBinder
+    public void initialiseBinder(WebDataBinder binder)
+    {
+        /**
+         * Mientras que al adicionar un nuevo producto nosotros enlazamos cada campo del Product domain en el formulario,
+         * pero si somos estrictos no tiene sentido espeificar unitsInOrder y discontinued durante la adicion de un nuevo
+         * producto ya que nadie hace un pedido antes de adicionar un producto. 
+         */
+        binder.setAllowedFields("productId", "name", "unitPrice", "description", "manufacturer", "category", "unitsInStock", "condition");
     }
 }

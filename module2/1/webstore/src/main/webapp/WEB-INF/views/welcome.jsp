@@ -11,8 +11,8 @@
     <head>
         <meta charset="utf-8">
         <title>Welcome</title>
-        <link rel="stylesheet" href="css/style.css"/>
-        <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">-->
+        <!--<link rel="stylesheet" href="css/style.css"/>-->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
     </head>
     <body>
         <div class="jumbotron">

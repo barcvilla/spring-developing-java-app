@@ -29,7 +29,7 @@
             <form:form method="POST" modelAttribute="newProduct" class="form-horizontal">
                 <fieldset>
                     <legend>Add New Product</legend>
-                    
+
                     <!--Enlazamos el valor de cada input text y otros elementos al correspondiente campo
                         del backing form mediante la propiedad path-->
                     <div class="form-group">
@@ -75,16 +75,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2 col-lg-2" for="unitsInOrder">Units in Order: </label>
-                        <div class="col-lg--10">
-                            <form:input id="unitsInOrder" path="unitsInOrder" type="text" class="form:input-large"/>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-lg-2 col-lg-2" for="discontinued">Discontinued: </label>
-                        <div class="col-lg--10">
-                            <form:checkbox id="discontinued" path="discontinued" />
+                        <label class="control-label col-lg-2" for="description">Description: </label>
+                        <div class="col-lg-10">
+                            <form:textarea id="description" path="description" rows="2" />
                         </div>
                     </div>
 
@@ -96,7 +89,7 @@
                             <form:radiobutton path="condition" value="Refurbished" />Refurbished
                         </div>
                     </div>
-                        
+
                     <!--Al hacer click en el boton Add se produce un POST request y se ejecutara el metodo processAddNewProduct
                         ya que este metodo es un post request y dentro de este metodo se llama al metodo add-->
                     <div class="form-group">
