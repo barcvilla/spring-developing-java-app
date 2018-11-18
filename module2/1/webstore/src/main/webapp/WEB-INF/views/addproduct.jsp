@@ -6,7 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -33,7 +34,11 @@
                     <!--Enlazamos el valor de cada input text y otros elementos al correspondiente campo
                         del backing form mediante la propiedad path-->
                     <div class="form-group">
-                        <label class="control-label col-lg-2 col-lg-2" for="productId">Product Id: </label>
+                        <label class="control-label col-lg-2 col-lg-2" for="productId">
+                            <!--Accedemos a texto externo. Atributo de tipo key donde Spring en runtime obtiene el valor
+                                del archivo messages.properties-->
+                            <spring:message code="addProduct.form.productId.label"/>
+                        </label>
                         <div class="col-lg--10">
                             <form:input id="productId" path="productId" type="text" class="form:input-large"/>
                         </div>
