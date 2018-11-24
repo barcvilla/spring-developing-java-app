@@ -64,11 +64,15 @@ public class WebApplicationContextConfig implements WebMvcConfigurer{
     
     /**
      * Declarando recursos estaticos (images)
+     * addResourceLocations define la ubicacion del directorio base de los recursos estaticos que deseamos proveer. En nuestro 
+     * caso queremos que todas las imagenes se encuentren disponibles bajo la ruta src/main/webapp/resources/images/
+     * addResourceHandler si viene un request conla ruta /img esta sera mapeado hacia resources/images
      * @param registry 
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry)
     {
+        //Le decimos a Spring donde los archivos de imagenes se encuentran ubicados
         registry.addResourceHandler("/img/**").addResourceLocations("/resources/images/");
     }
     

@@ -39,14 +39,14 @@
                                 del archivo messages.properties-->
                             <spring:message code="addProduct.form.productId.label"/>
                         </label>
-                        <div class="col-lg--10">
+                        <div class="col-lg-10">
                             <form:input id="productId" path="productId" type="text" class="form:input-large"/>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-lg-2 col-lg-2" for="name">Name: </label>
-                        <div class="col-lg--10">
+                        <div class="col-lg-10">
                             <form:input id="name" path="name" type="text" class="form:input-large"/>
                         </div>
                     </div>
@@ -60,21 +60,21 @@
 
                     <div class="form-group">
                         <label class="control-label col-lg-2 col-lg-2" for="manufacturer">Manufacturer: </label>
-                        <div class="col-lg--10">
+                        <div class="col-lg-10">
                             <form:input id="manufacturer" path="manufacturer" type="text" class="form:input-large"/>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-lg-2 col-lg-2" for="category">Category: </label>
-                        <div class="col-lg--10">
+                        <div class="col-lg-10">
                             <form:input id="category" path="category" type="text" class="form:input-large"/>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-lg-2 col-lg-2" for="unitsInStock">Units in Stock: </label>
-                        <div class="col-lg--10">
+                        <div class="col-lg-10">
                             <form:input id="unitsInStock" path="unitsInStock" type="text" class="form:input-large"/>
                         </div>
                     </div>
@@ -87,8 +87,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2 col-lg-2" for="condition">Condition: </label>
-                        <div class="col-lg--10">
+                        <label class="control-label col-lg-2" for="condition">Condition: </label>
+                        <div class="col-lg-10">
                             <form:radiobutton path="condition" value="New" />New
                             <form:radiobutton path="condition" value="Old" />Old
                             <form:radiobutton path="condition" value="Refurbished" />Refurbished
