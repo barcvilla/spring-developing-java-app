@@ -26,8 +26,9 @@
         </section>
         <section class="container">
             <!--enlazamos el objeto newProduct adjuntado en el objeto Model con el formulario. Este formulario en
-                Spring se llama From Backing Bean-->
-            <form:form method="POST" modelAttribute="newProduct" class="form-horizontal">
+                Spring se llama From Backing Bean
+                enctype="multipart/form-data" permite aceptar upload image-->
+            <form:form method="POST" modelAttribute="newProduct" class="form-horizontal" enctype="multipart/form-data">
                 <fieldset>
                     <legend>Add New Product</legend>
 
@@ -92,6 +93,15 @@
                             <form:radiobutton path="condition" value="New" />New
                             <form:radiobutton path="condition" value="Old" />Old
                             <form:radiobutton path="condition" value="Refurbished" />Refurbished
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-2" for="productImage">
+                            <spring:message code="addProduct.form.productImage.label" />
+                        </label>
+                        <div class="col-lg-10">
+                            <form:input id="productImage" path="productImage" type="file" class="form:input-large" />
                         </div>
                     </div>
 

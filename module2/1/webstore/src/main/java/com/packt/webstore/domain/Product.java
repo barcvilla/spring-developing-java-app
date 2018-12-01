@@ -8,6 +8,7 @@ package com.packt.webstore.domain;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Domain Object
@@ -26,6 +27,8 @@ public class Product implements Serializable{
     private long unitsInOrder;
     private boolean discontinued;
     private String condition;
+    
+    private MultipartFile producImage;
     
     public Product(){}
     
@@ -114,6 +117,14 @@ public class Product implements Serializable{
 
     public void setCondition(String condition) {
         this.condition = condition;
+    }
+
+    public MultipartFile getProductImage() {
+        return producImage;
+    }
+
+    public void setProducImage(MultipartFile producImage) {
+        this.producImage = producImage;
     }
 
     @Override

@@ -6,8 +6,10 @@
 package com.packt.webstore.controller;
 import com.packt.webstore.domain.Product;
 import com.packt.webstore.service.ProductService;
+import java.io.File;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Clase ProductContoller anotada como controller que indica a Spring crear y administrar este objeto como un spring bean
@@ -132,17 +135,35 @@ public class ProductController {
      * Como se puede ver, no se ha creado un objeto de dominio vacio Product ni se ha adjuntado al model. Todo lo que hicimos
      * fue adicionar un parametro de tipo Product y anotarlo con la anotacion @ModelAttribute, asi SPring MVC sabe que debe
      * crear un objeto de tipo Product y adjuntarlo al model bajo el nombre newProduct
+     * HttpServletRequest request : 
      * @param newProduct
      * @return 
      */
     @RequestMapping(value = "/products/add", method = RequestMethod.POST)
-    public String processAddNewProductForm(@ModelAttribute("newProduct") Product newProduct, BindingResult result)
+    public String processAddNewProductForm(@ModelAttribute("newProduct") Product newProduct, BindingResult result, HttpServletRequest request)
     {
         String[] suppressedFields = result.getSuppressedFields();
         if(suppressedFields.length > 0)
         {
             throw new RuntimeException("Attempting to bind disallowed fields " + StringUtils.arrayToCommaDelimitedString(suppressedFields));
         }
+        
+        // get productImage
+        MultipartFile productImage = newProduct.getProductImage();
+        String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+        if(productImage != null && !productImage.isEmpty())
+        {
+            try
+            {
+                productImage.transferTo(new File(rootDirectory + "resources\\images\\" + newProduct.getProductId() + ".png"));
+                System.out.println(rootDirectory + "resources\\images\\"+newProduct.getProductId()+".png");
+            }
+            catch(Exception ex)
+            {
+                throw new RuntimeException("Product Image Saving failed", ex);
+            }
+        }
+        
         productService.addProduct(newProduct);
         return "redirect:/market/products";
     }
@@ -163,6 +184,6 @@ public class ProductController {
          * pero si somos estrictos no tiene sentido espeificar unitsInOrder y discontinued durante la adicion de un nuevo
          * producto ya que nadie hace un pedido antes de adicionar un producto. 
          */
-        binder.setAllowedFields("productId", "name", "unitPrice", "description", "manufacturer", "category", "unitsInStock", "condition");
+        binder.setAllowedFields("productId", "name", "unitPrice", "description", "manufacturer", "category", "unitsInStock", "condition", "productImage");
     }
 }

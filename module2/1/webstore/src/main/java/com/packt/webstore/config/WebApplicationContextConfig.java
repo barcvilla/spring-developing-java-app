@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
@@ -60,6 +62,20 @@ public class WebApplicationContextConfig implements WebMvcConfigurer{
         urlPathHelper.setRemoveSemicolonContent(false);
         
         configurer.setUrlPathHelper(urlPathHelper);
+    }
+    
+    /**
+     * Configuracion para upload imagenes al server mediante Multipart request. Un Multipart request es un tipo de
+     * HTTP request que se utiliza para enviar archivos y datos al servidor. 
+     */
+    @Bean
+    public CommonsMultipartResolver multipartResolver()
+    {
+        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+        resolver.setDefaultEncoding("utf-8");
+        resolver.setMaxUploadSize(20000000);
+        resolver.setResolveLazily(false);
+        return resolver;
     }
     
     /**
