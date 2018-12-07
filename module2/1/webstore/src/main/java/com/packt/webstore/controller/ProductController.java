@@ -7,6 +7,7 @@ package com.packt.webstore.controller;
 import com.packt.webstore.domain.Product;
 import com.packt.webstore.service.ProductService;
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -148,15 +149,14 @@ public class ProductController {
             throw new RuntimeException("Attempting to bind disallowed fields " + StringUtils.arrayToCommaDelimitedString(suppressedFields));
         }
         
-        // get productImage
-        MultipartFile productImage = newProduct.getProductImage();
+        MultipartFile productImage = newProduct.getProductImage(); // productImage siempre es null!!!!!!!!!!!
         String rootDirectory = request.getSession().getServletContext().getRealPath("/");
         if(productImage != null && !productImage.isEmpty())
         {
             try
             {
                 productImage.transferTo(new File(rootDirectory + "resources\\images\\" + newProduct.getProductId() + ".png"));
-                System.out.println(rootDirectory + "resources\\images\\"+newProduct.getProductId()+".png");
+                
             }
             catch(Exception ex)
             {

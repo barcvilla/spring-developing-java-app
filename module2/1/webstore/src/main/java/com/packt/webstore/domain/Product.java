@@ -123,7 +123,7 @@ public class Product implements Serializable{
         return producImage;
     }
 
-    public void setProducImage(MultipartFile producImage) {
+    public void setProductImage(MultipartFile producImage) {
         this.producImage = producImage;
     }
 
