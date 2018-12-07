@@ -7,6 +7,7 @@ package com.packt.webstore.controller;
 import com.packt.webstore.domain.Product;
 import com.packt.webstore.service.ProductService;
 import java.io.File;
+import java.net.URL;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
