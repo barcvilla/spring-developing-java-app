@@ -5,15 +5,19 @@
  */
 package com.packt.webstore.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Domain Object
  * @author PC
  */
+@XmlRootElement
 public class Product implements Serializable{
     private static final long serialVersionUID = 1L;
     
@@ -28,6 +32,7 @@ public class Product implements Serializable{
     private boolean discontinued;
     private String condition;
     
+    @JsonIgnore
     private MultipartFile producImage;
     
     public Product(){}
@@ -118,7 +123,8 @@ public class Product implements Serializable{
     public void setCondition(String condition) {
         this.condition = condition;
     }
-
+    
+    @XmlTransient
     public MultipartFile getProductImage() {
         return producImage;
     }
