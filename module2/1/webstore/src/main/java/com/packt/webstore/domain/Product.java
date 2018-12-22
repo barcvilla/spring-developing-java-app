@@ -5,7 +5,7 @@
  */
 package com.packt.webstore.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;

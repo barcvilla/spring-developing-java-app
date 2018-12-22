@@ -115,7 +115,7 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
     public MarshallingView xmlView()
     {
         Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
-        marshaller.setClassesToBeBound(Product.class);
+        marshaller.setClassesToBeBound(Product.class); //Listamos la clase del dominio que requiere la conversion a xml
         MarshallingView xmlView = new MarshallingView(marshaller);
         return xmlView;
     }
@@ -125,6 +125,8 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
      * servicios web. Utilizando ContentNegotiatingViewResolver podemos incorporar muchas View como
      * MappingJackson2JsonView para JSON y MarshallingView para XML para representar la misma informacion del producto en
      * xml y json
+     * Este metodo no resuelve Views por si mismo, en lugar de eso, lo delega a otras View basado en el request, asi que 
+     * necesitamos presentar otras Views al ContentNegotiatingViewResolver
      * @param manager
      * @return 
      */
