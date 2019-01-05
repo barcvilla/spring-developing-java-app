@@ -7,10 +7,12 @@ package com.packt.webstore.domain.repository.Impl;
 
 import com.packt.webstore.domain.Product;
 import com.packt.webstore.domain.repository.ProductRepository;
+import com.packt.webstore.exception.ProductNotFoundException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -76,7 +78,14 @@ public class ProductRepositoryImpl implements ProductRepository{
          String sql = "SELECT * FROM products WHERE ID = :productId";
          Map<String, Object> params = new HashMap<String, Object>();
          params.put("productId", productId);
-         return jdbcTemplate.queryForObject(sql, params, new ProductMapper());
+         try
+         {
+            return jdbcTemplate.queryForObject(sql, params, new ProductMapper());
+         }
+         catch(DataAccessException e)
+         {
+             throw new ProductNotFoundException(productId);
+         }
     }
     
     @Override
