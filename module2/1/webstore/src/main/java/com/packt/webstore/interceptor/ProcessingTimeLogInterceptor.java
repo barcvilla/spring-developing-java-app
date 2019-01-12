@@ -17,6 +17,9 @@ import org.springframework.web.servlet.ModelAndView;
  * preHandle: este metodo sera llamado antes que la web request encuentre el controller para su ejecucion.
  * postHandle: este metodo sera llamado despues de la ejecucion del metodo en el controller
  * afterCompletion: este metodo sera llamado luego que se haya completado el ciclo entero del web request
+ * 
+ * Clase para registrar el tiempo de ejecucion request entrante a nuestra aplicacion web, este tiempo lo registramos
+ * en un log file llamado webstore-performance
  * @author PC
  */
 public class ProcessingTimeLogInterceptor implements HandlerInterceptor{
@@ -37,7 +40,7 @@ public class ProcessingTimeLogInterceptor implements HandlerInterceptor{
         long startTime = (Long)request.getAttribute("startTime");
         long endTime = System.currentTimeMillis();
         
-        LOGGER.info(String.format("%s millisecond take to process the request %$. ", (endTime - startTime), path));
+        LOGGER.info(String.format("%s millisecond take to process the request %s. ", (endTime - startTime), path));
     }
 
     @Override
