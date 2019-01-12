@@ -84,6 +84,7 @@ public class ProductRepositoryImpl implements ProductRepository{
          }
          catch(DataAccessException e)
          {
+             // Lanzamos la excepcion cuando el producto no es encontrado
              throw new ProductNotFoundException(productId);
          }
     }

@@ -6,6 +6,7 @@
 package com.packt.webstore.config;
 
 import com.packt.webstore.domain.Product;
+import com.packt.webstore.interceptor.ProcessingTimeLogInterceptor;
 import java.util.ArrayList;
 import javax.faces.application.ResourceHandler;
 import org.springframework.context.MessageSource;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -163,5 +165,11 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
         ResourceBundleMessageSource resource = new ResourceBundleMessageSource();
         resource.setBasename("messages");
         return resource;
+    }
+    
+    @Override
+    public void addInterceptors(InterceptorRegistry registry)
+    {
+        registry.addInterceptor(new ProcessingTimeLogInterceptor());
     }
 }
