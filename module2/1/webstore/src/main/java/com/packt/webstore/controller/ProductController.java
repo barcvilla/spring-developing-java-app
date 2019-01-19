@@ -199,7 +199,9 @@ public class ProductController {
         binder.setAllowedFields("productId", "name", "unitPrice", "description", "manufacturer", "category", "unitsInStock", "condition", "productImage");
     }
 
-    // Exception Handler method
+    /**
+     *  
+     */
     @ExceptionHandler(ProductNotFoundException.class)
     public ModelAndView handleError(HttpServletRequest req, ProductNotFoundException exception)
     {

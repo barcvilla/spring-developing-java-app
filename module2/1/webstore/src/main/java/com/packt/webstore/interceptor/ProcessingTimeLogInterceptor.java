@@ -24,7 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class ProcessingTimeLogInterceptor implements HandlerInterceptor{
     private static final Logger LOGGER = Logger.getLogger(ProcessingTimeLogInterceptor.class);
-
+    
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         long startTime = System.currentTimeMillis();
