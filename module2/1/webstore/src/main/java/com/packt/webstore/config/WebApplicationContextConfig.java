@@ -7,6 +7,7 @@ package com.packt.webstore.config;
 
 import com.packt.webstore.domain.Product;
 import com.packt.webstore.interceptor.ProcessingTimeLogInterceptor;
+import com.packt.webstore.interceptor.PromoCodeInterceptor;
 import com.sun.corba.se.spi.resolver.LocalResolver;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -21,6 +22,7 @@ import org.springframework.web.accept.ContentNegotiationManager;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.multipart.support.MultipartFilter;
+import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
@@ -180,6 +182,7 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
         LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
         localeChangeInterceptor.setParamName("language");
         registry.addInterceptor(localeChangeInterceptor);
+        registry.addInterceptor(promoCodeInterceptor()).addPathPatterns("/**/market/products/specialOffer");
     }
     
     @Bean
@@ -188,5 +191,15 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
         SessionLocaleResolver resolver = new SessionLocaleResolver();
         resolver.setDefaultLocale(new Locale("en"));
         return resolver;
+    }
+    
+    @Bean
+    public HandlerInterceptor promoCodeInterceptor()
+    {
+        PromoCodeInterceptor promoCodeInterceptor = new PromoCodeInterceptor();
+        promoCodeInterceptor.setPromoCode("OFF3R");
+        promoCodeInterceptor.setOfferRedirect("market/products");
+        promoCodeInterceptor.setErrorRedirect("invalidPromoCode");
+        return promoCodeInterceptor;
     }
 }

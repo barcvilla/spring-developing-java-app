@@ -196,7 +196,7 @@ public class ProductController {
          * pero si somos estrictos no tiene sentido espeificar unitsInOrder y discontinued durante la adicion de un nuevo
          * producto ya que nadie hace un pedido antes de adicionar un producto. 
          */
-        binder.setAllowedFields("productId", "name", "unitPrice", "description", "manufacturer", "category", "unitsInStock", "condition", "productImage");
+        binder.setAllowedFields("productId", "name", "unitPrice", "description", "manufacturer", "category", "unitsInStock", "condition", "productImage", "language");
     }
 
     /**
@@ -211,5 +211,11 @@ public class ProductController {
         mav.addObject("url", req.getRequestURL() + "?" + req.getQueryString());
         mav.setViewName("productNotFound");
         return mav;
+    }
+    
+    @RequestMapping("/products/invalidPromoCode")
+    public String invalidPromoCode()
+    {
+        return "invalidPromoCode";
     }
 }
